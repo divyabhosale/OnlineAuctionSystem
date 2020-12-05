@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+
+{% block content %}
+		<div class="row" align="center" style="margin-top: 50px; margin-left: 50px; margin-right: 50px;">
+			{% for instance in products %}
+				<div class="col-md-3" style="border-style: ridge; height: 250px;">
+				<div style="width: 150px;height: 150px"><img src="/{{instance.image}}" style="width: 150px;height: 150px;object-fit: contain;" ></div>
+				<p style="font-size: 20px;">
+					<a href="?productid={{instance.productid}}">{{instance.productname}}</a><br/>
+					${{instance.price}}<br/>
+				</p>
+				</div>
+		        {% if forloop.counter|divisibleby:4 and not forloop.last %}
+		        </div><div class="row" align="center" style="margin-top: 80px; margin-left: 50px; margin-right: 50px;">
+		        {% endif %}
+			{% endfor %} 
+		</div>
+		<div align="center" style="margin-top: 15px;">
+	    	{% if products.has_previous %}
+	    	<a href="?page={{products.previous_page_number}}">Previous</a> {% else %}
+	    	<span>Previous</span> {% endif %}
+
+	    	<span>
+	    	Page {{products.number}} of {{products.paginator.num_pages}}.
+	    	</span> {% if products.has_next %}
+	    	<a href="?page={{products.next_page_number}}">Next</a> {% else %}
+	    	<span>Next</span> {% endif %}
+		</div>
+
+{% endblock %}
